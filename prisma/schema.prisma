@@ -30,6 +30,8 @@ model Card {
   description  String
   groupId      String
   groupName    String
+  sprintId     String
+  sprintNumber Int
 
   @@map("cards")
 }
