@@ -1,0 +1,11 @@
+version: '3'
+
+services:
+  api-kanban:
+    image: bitnami/postgres
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRESQL_USERNAME=savio
+      - POSTGRESQL_PASSWORD=savio
+      - POSTGRESQL_DATABASE=kanban
