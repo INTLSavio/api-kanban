@@ -1,24 +1,52 @@
 import { Request, Response } from 'express';
 
 import { z } from 'zod';
-import { makeCreateUserUseCase } from '../../../use-cases/factories/users/makeCreateUseCase';
+import { makeCreateUseCase } from '../../../use-cases/factories/cards/makeCreateUseCase';
 
 export async function create(req: Request, res: Response) {
-    const createUserBodySchema = z.object({
-        email: z.string(),
-        name: z.string(),
-        password: z.string()
+    const createCardBodySchema = z.object({
+        title: z.string(),
+        description: z.string(),
+        pontuation: z.number(),
+        groupId: z.string(),
+        groupName: z.string(),
+        authorId: z.string(),
+        authorName: z.string(),
+        assignedId: z.string(),
+        assignedName: z.string(),
+        sprintId: z.string(),
+        sprintNumber: z.number()
     });
 
-    const { email, name, password } = createUserBodySchema.parse(req.body);
+    const { 
+        title,
+        description,
+        pontuation,
+        groupId,
+        groupName,
+        authorId,
+        authorName,
+        assignedId,
+        assignedName,
+        sprintId,
+        sprintNumber 
+    } = createCardBodySchema.parse(req.body);
 
-    const createUserUseCase = makeCreateUserUseCase();
+    const createUseCase = makeCreateUseCase();
 
     try {
-        await createUserUseCase.execute({
-            email,
-            name,
-            password
+        await createUseCase.execute({
+            title,
+            description,
+            pontuation,
+            groupId,
+            groupName,
+            authorId,
+            authorName,
+            assignedId,
+            assignedName,
+            sprintId,
+            sprintNumber 
         });
 
         return res.status(200).send();
